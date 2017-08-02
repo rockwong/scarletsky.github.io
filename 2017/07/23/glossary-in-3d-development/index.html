@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>3D 开发中常见的术语 | Scarletsky</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="3d," />
+  
+
+  <meta name="description" content="简介在 3D 开发领域，我们会经常看到一些术语，有些是和数学相关的，有些是和模型相关的，也有一些是和程序相关的。本文是我对 3D 开发中常见术语的总结。
+数学数学是 3D 开发的基石，无论你想要操作物体移动，还是在屏幕中显示一个 3D 物体，都涉及到数学计算。在 3D 开发中，最常见的数学工具是向量、矩阵、四元数。
+向量(Vector)向量是既有大小又有方向的量。下面是常见的类型：
+
+二维向量(V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3D 开发中常见的术语">
+<meta property="og:url" content="http://scarletsky.github.io/2017/07/23/glossary-in-3d-development/index.html">
+<meta property="og:site_name" content="Scarletsky">
+<meta property="og:description" content="简介在 3D 开发领域，我们会经常看到一些术语，有些是和数学相关的，有些是和模型相关的，也有一些是和程序相关的。本文是我对 3D 开发中常见术语的总结。
+数学数学是 3D 开发的基石，无论你想要操作物体移动，还是在屏幕中显示一个 3D 物体，都涉及到数学计算。在 3D 开发中，最常见的数学工具是向量、矩阵、四元数。
+向量(Vector)向量是既有大小又有方向的量。下面是常见的类型：
+
+二维向量(V">
+<meta property="og:image" content="http://7tebgv.com1.z0.glb.clouddn.com/images/aabb.png">
+<meta property="og:image" content="http://7tebgv.com1.z0.glb.clouddn.com/images/aabb2.png">
+<meta property="og:image" content="http://7tebgv.com1.z0.glb.clouddn.com/images/obb.png">
+<meta property="og:image" content="http://7tebgv.com1.z0.glb.clouddn.com/images/obb2.png">
+<meta property="og:updated_time" content="2017-08-02T14:17:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3D 开发中常见的术语">
+<meta name="twitter:description" content="简介在 3D 开发领域，我们会经常看到一些术语，有些是和数学相关的，有些是和模型相关的，也有一些是和程序相关的。本文是我对 3D 开发中常见术语的总结。
+数学数学是 3D 开发的基石，无论你想要操作物体移动，还是在屏幕中显示一个 3D 物体，都涉及到数学计算。在 3D 开发中，最常见的数学工具是向量、矩阵、四元数。
+向量(Vector)向量是既有大小又有方向的量。下面是常见的类型：
+
+二维向量(V">
+<meta name="twitter:image" content="http://7tebgv.com1.z0.glb.clouddn.com/images/aabb.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40690820-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学"><span class="toc-text">数学</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向量-Vector"><span class="toc-text">向量(Vector)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵-Matrix"><span class="toc-text">矩阵(Matrix)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欧拉角-EulerAngles"><span class="toc-text">欧拉角(EulerAngles)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四元数-Quaternion"><span class="toc-text">四元数(Quaternion)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D-模型"><span class="toc-text">3D 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点-Vertex"><span class="toc-text">顶点(Vertex)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网格-Mesh"><span class="toc-text">网格(Mesh)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#材质-Material"><span class="toc-text">材质(Material)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贴图-Texture"><span class="toc-text">贴图(Texture)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轴向包围盒-Axis-Align-Bounding-Box"><span class="toc-text">轴向包围盒(Axis Align Bounding Box)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有向包围盒-Orient-Bounding-Box"><span class="toc-text">有向包围盒(Orient Bounding Box)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序"><span class="toc-text">程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点缓冲区-Vertex-Buffer"><span class="toc-text">顶点缓冲区(Vertex Buffer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引缓冲区-Index-Buffer"><span class="toc-text">索引缓冲区(Index Buffer)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#着色-Shading"><span class="toc-text">着色(Shading)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#着色器-Shader"><span class="toc-text">着色器(Shader)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Draw-Call"><span class="toc-text">Draw Call</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-glossary-in-3d-development" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">3D 开发中常见的术语</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.07.23</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Scarletsky</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/technology/">technology</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://scarletsky.github.io/2017/07/23/glossary-in-3d-development/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 3D 开发领域，我们会经常看到一些术语，有些是和数学相关的，有些是和模型相关的，也有一些是和程序相关的。本文是我对 3D 开发中常见术语的总结。</p>
+<h2 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h2><p>数学是 3D 开发的基石，无论你想要操作物体移动，还是在屏幕中显示一个 3D 物体，都涉及到数学计算。在 3D 开发中，最常见的数学工具是向量、矩阵、四元数。</p>
+<h3 id="向量-Vector"><a href="#向量-Vector" class="headerlink" title="向量(Vector)"></a>向量(Vector)</h3><p>向量是既有大小又有方向的量。下面是常见的类型：</p>
+<ul>
+<li><p>二维向量(Vec2)<br>主要用来记录平面相关的值，如鼠标事件/触摸事件的发生的坐标，二维物体坐标等。<br>它有两个分量，分别是 <code>x</code> 和 <code>y</code>。</p>
+</li>
+<li><p>三维向量(Vec3)<br>主要用来记录空间坐标，如三维物体的位置。也可以用来表示方向，如一个平面的法线方向。<br>它有三个分量，分别是 <code>x</code> 和 <code>y</code> 和 <code>z</code>。</p>
+</li>
+</ul>
+<p>向量常见的操作有以下几种：</p>
+<ul>
+<li>加法</li>
+<li><p>减法</p>
+</li>
+<li><p>规范化(normalize)<br>即把该向量变成单位向量(长度为1)。</p>
+</li>
+<li><p>点乘<br>计算公式为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">a.dot(b) = a.length() * b.length() * Math.cos(theta)</div></pre></td></tr></table></figure>
+<p>点乘的结果是一个标量，通常用来求向量的在另一个向量上的投影长度，也可以用来求两向量之间的夹角。<br>另外，当两向量都是单位向量时，我们可以简化上面的公式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">a.dot(b) = Math.cos(theta)</div><div class="line">theta = Math.acos(a.dot(b));</div></pre></td></tr></table></figure>
+</li>
+<li><p>叉乘<br>叉乘的结果是一个向量，该向量会垂直于另外两个变量。它满足下面公式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">a.cross(b) = c</div><div class="line">c.length() = a.length() * b.length() * Math.sin(theta)</div></pre></td></tr></table></figure>
+<p>我们知道，三个不在同一直线上的点可以构成一个平面，我们可以通过用这三个点计算两个向量，然后再计算这两个向量的叉乘，结果就是这个平面的法线了。</p>
+</li>
+</ul>
+<h3 id="矩阵-Matrix"><a href="#矩阵-Matrix" class="headerlink" title="矩阵(Matrix)"></a>矩阵(Matrix)</h3><p>矩阵在 3D 开发中常常用来变换顶点坐标。<br>计算方法是把矩阵与顶点坐标相乘，即可得到变换后的顶点坐标。 即：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertex&apos; = matrix * vertex</div></pre></td></tr></table></figure>
+<p>其中，最常见的矩阵有下面几种：</p>
+<ul>
+<li><p>模型矩阵(Model Matrix)<br>模型矩阵的作用是把局部坐标中的顶点转换成世界坐标。<br>每个模型从三维软件导出时，都会基于一套坐标系来生成顶点坐标，这个坐标系就是局部坐标。<br>当我们把这个模型放到场景中的指定位置时，由于该位置是世界坐标中的一点，我们的操作相当于把模型从原点平移到该位置。同理，我们也可以在场景中对模型进行旋转和缩放操作。<br>实际上这些操作是在操作模型矩阵，利用这个模型矩阵把模型局部坐标中的顶点转换成世界坐标的顶点。</p>
+</li>
+<li><p>视图矩阵(View Matrix)<br>视图矩阵用来把顶点的世界坐标转换成相对于观察者的坐标。</p>
+</li>
+<li><p>投影矩阵(Projection Matrix)<br>投影矩阵用来把顶点相对于观察者的坐标转换成屏幕坐标。</p>
+</li>
+</ul>
+<p>这三个矩阵统称成 MVP 矩阵，我们在屏幕上看到的点都是通过如下公式进行转换的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vertex&apos; = Projection * View * Model * vertex</div></pre></td></tr></table></figure>
+<h3 id="欧拉角-EulerAngles"><a href="#欧拉角-EulerAngles" class="headerlink" title="欧拉角(EulerAngles)"></a>欧拉角(EulerAngles)</h3><p>欧拉角用来表示物体旋转的角度，它由三部分组成：</p>
+<ul>
+<li>俯仰角(Pitch)，表示绕 X 轴旋转的角度。</li>
+<li>偏航角(Yaw 或 Heading)，表示绕 Y 轴旋转的角度。</li>
+<li>翻滚角(Roll 或 Bank)，表示绕 Z 轴旋转的角度。</li>
+</ul>
+<p>由于欧拉角非常直观易用，因此它对于新手来说非常友好。<br>但是，对于任意一个角度，欧拉角的表示方式由旋转顺序来决定，即可以按照 X-Y-Z 的顺序来旋转，也可以按照 Y-Z-X 的顺序来旋转，也可以按照其他顺序来旋转，这样会导致一个角度会有多种表示方式。<br>另外，如果想要在两个欧拉角之间进行插值(即想要实现平滑过度)，那是非常困难的。<br>最致命的一点是，欧拉角存在万向锁。想了解的话可以观看这个<a href="http://v.youku.com/v_show/id_XNzkyOTIyMTI=.html" target="_blank" rel="external">视频</a>。</p>
+<h3 id="四元数-Quaternion"><a href="#四元数-Quaternion" class="headerlink" title="四元数(Quaternion)"></a>四元数(Quaternion)</h3><p>四元数是用来表达旋转的另一种方式，一个四元数表示绕一个方向旋转特定的角度。如绕 Y 轴旋转 90 度，用四元数来表示的话只需要一个方向 <code>Vector3(0, 1, 0)</code> 和一个角度 90 即可。<br>四元数没有万向锁，插值非常简单。</p>
+<h2 id="3D-模型"><a href="#3D-模型" class="headerlink" title="3D 模型"></a>3D 模型</h2><p>任何一个 3D 模型都是由多个简单的几何形状组成的，而这些几何形状又是通过三角形来组成的。</p>
+<h3 id="顶点-Vertex"><a href="#顶点-Vertex" class="headerlink" title="顶点(Vertex)"></a>顶点(Vertex)</h3><p>在三维空间中，一个孤立的点是普通的点。如果一个点是用来构成多边形的，那么该点就被称为顶点。 </p>
+<h3 id="网格-Mesh"><a href="#网格-Mesh" class="headerlink" title="网格(Mesh)"></a>网格(Mesh)</h3><p>网格是一种复杂的形状，它由多个顶点按照某个规律连接而成，换句话说，一个网格包含了多个顶点。<br>一个模型可以包含多个网格。</p>
+<h3 id="材质-Material"><a href="#材质-Material" class="headerlink" title="材质(Material)"></a>材质(Material)</h3><p>材质管理着颜色、明暗、光泽等信息。当一个网格加上一个材质之后，它就可以在屏幕上显示特定的「色彩」了。 一个网格只有一种材质，而一种材质可以应用在多个网格上。</p>
+<h3 id="贴图-Texture"><a href="#贴图-Texture" class="headerlink" title="贴图(Texture)"></a>贴图(Texture)</h3><p>贴图是指把一张普通的图片贴到材质的表面。每种材质都可以有多种类型的贴图，如漫反射贴图、法线贴图、高光贴图、光照贴图 等。材质除了这些贴图之外，还有其他属性，可以用来调节这些贴图的属性。<br>换句话说，每种材质都可以包含多种贴图。</p>
+<h3 id="轴向包围盒-Axis-Align-Bounding-Box"><a href="#轴向包围盒-Axis-Align-Bounding-Box" class="headerlink" title="轴向包围盒(Axis Align Bounding Box)"></a>轴向包围盒(Axis Align Bounding Box)</h3><p>轴向包围盒简称 AABB，是指包含一个模型，且边平行于坐标轴的最小六面体。<br>请看看下面两张图：<br><img src="http://7tebgv.com1.z0.glb.clouddn.com/images/aabb.png" alt=""><br><img src="http://7tebgv.com1.z0.glb.clouddn.com/images/aabb2.png" alt=""><br>AABB 就是在模型最外面的由细线构成包围盒，它会随着模型旋转而变化。<br>实际上，AABB 并不可见，上图中的只是为了让我们更好理解才把包围盒画上去的。<br>另外，第一张图中为了让我们更好看见 AABB，特意把 AABB 调大了一点点，实际上该模型的 AABB 和所有边都是重合的。</p>
+<h3 id="有向包围盒-Orient-Bounding-Box"><a href="#有向包围盒-Orient-Bounding-Box" class="headerlink" title="有向包围盒(Orient Bounding Box)"></a>有向包围盒(Orient Bounding Box)</h3><p>有向包围盒简称 OBB，它是包含模型且相对于坐标轴方向任意的最小的长方体。<br>看看下面两张图：<br><img src="http://7tebgv.com1.z0.glb.clouddn.com/images/obb.png" alt=""><br><img src="http://7tebgv.com1.z0.glb.clouddn.com/images/obb2.png" alt=""><br>白色线框表示的就是 OBB，而蓝色线框表示的则是 AABB。<br>如果想看更直观的对比，可以看看这个视频：<a href="https://www.youtube.com/watch?v=HYO5Pthe3TE" target="_blank" rel="external">AABB vs OBB</a>。</p>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><h3 id="顶点缓冲区-Vertex-Buffer"><a href="#顶点缓冲区-Vertex-Buffer" class="headerlink" title="顶点缓冲区(Vertex Buffer)"></a>顶点缓冲区(Vertex Buffer)</h3><p>顶点缓冲区的作用是用来存储顶点数据，然后提供给底层 API 进行绘制。<br>顶点缓冲区用一维数组的方式来存储顶点信息，但绘制3D 图形每个顶点需要三个维度的数据(x, y, z)，因此，底层在绘图的时候会通过「偏移」的方式来取点。如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var vertexBuffer = new Float32Array([</div><div class="line">  0.0,  0.5,  0.0,</div><div class="line">  -0.5, -0.5, 0.0,</div><div class="line">  0.5,  -0.5, 0.0</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<p>上面这个顶点缓冲区有9个元素，但其实它包含了3个顶点的信息，每个顶点会占用3个位置。<br>把数据传递给底层时，需要设置偏移量为 3，才能正确绘制图形。</p>
+<h3 id="索引缓冲区-Index-Buffer"><a href="#索引缓冲区-Index-Buffer" class="headerlink" title="索引缓冲区(Index Buffer)"></a>索引缓冲区(Index Buffer)</h3><p>在绘制复杂图形的时候，我们需要用到非常多的顶点，如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var vertexBuffer = new Float32Array([</div><div class="line">  0.0,  0.5,  0.0,</div><div class="line">  -0.5, -0.5, 0.0,</div><div class="line">  0.5,  -0.5, 0.0,</div><div class="line">  0.0,  0.5,  0.0,</div><div class="line">  0.5,  -0.5, 0.0,</div><div class="line">  0.75, 0.5,  0.0</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<p>上面的顶点缓冲区中有有两个顶点是重复的，分别是：<code>[0.0, 0.5, 0.0]</code> 和 <code>[0.5, -0.5, 0.0]</code>。如果需要绘制的图形非常复杂，那么重复的顶点会非常多，这样就造成浪费了。<br>其实，我们只需要在绘制时指定顶点的顺序，就可以解决顶点重复的问题了，而索引缓冲区就是用来做这事情的。我们可以把上面的 <code>vertexBuffer</code> 进行简化，然后引入 <code>indexBuffer</code>：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var vertexBuffer = new Float32Array([</div><div class="line">  0.0,  0.5,  0.0,</div><div class="line">  -0.5, -0.5, 0.0,</div><div class="line">  0.5,  -0.5, 0.0,</div><div class="line">  0.75, 0.5,  0.0</div><div class="line">]);</div><div class="line">var indexBuffer = new Uint8Array([</div><div class="line">  0, 1, 2,</div><div class="line">  0, 2, 3</div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<p>这样，我们就可以简化顶点缓冲区的数据了。</p>
+<h3 id="着色-Shading"><a href="#着色-Shading" class="headerlink" title="着色(Shading)"></a>着色(Shading)</h3><p>简单来说，为整个三维场景上色的过程叫做着色。在真实世界中，在光线的作用下，我们可以辨认出物体的颜色，还有它们产生的阴影。<br>在 3D 场景中，仅仅通过顶点所绘制出来的图形并没有光照信息，我们可以在场景中添加灯光，然后通过计算才能得到某个位置的颜色信息，再为该位置进行上色，这就是着色的过程。</p>
+<h3 id="着色器-Shader"><a href="#着色器-Shader" class="headerlink" title="着色器(Shader)"></a>着色器(Shader)</h3><p>着色器是运行在 GPU 上的程序，负责处理顶点信息和片元信息，是 3D 绘图中最重要的部分。<br>着色器通常有两种，分别是顶点着色器(Vertex Shader)和片元着色器(Fragment Shader)。<br>顶点着色器负责处理顶点的信息，上面提到的顶点缓冲区就是由顶点着色器来处理的。<br>片元着色器负责为片元上色，它会在顶点着色器后面执行。</p>
+<h3 id="Draw-Call"><a href="#Draw-Call" class="headerlink" title="Draw Call"></a>Draw Call</h3><p>Draw Call 是一次绘图操作，当我们把数据(如顶点、贴图、着色器等信息)准备好，然后传给 GPU 绘制就是一次 Draw Call。可以认为，Draw Call 次数越少，性能越好。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://jmonkeyengine.github.io/wiki/jme3/terminology_zh.html" target="_blank" rel="external">3D游戏开发术语</a><br><a href="http://www.opengl-tutorial.org/cn/beginners-tutorials/tutorial-3-matrices/" target="_blank" rel="external">OpenGL 教程第三课：矩阵</a><br><a href="http://blog.csdn.net/jared_lau/article/details/48226193" target="_blank" rel="external">模型矩阵、视图矩阵、投影矩阵</a><br><a href="http://blog.csdn.net/sinat_27456831/article/details/50042915" target="_blank" rel="external">欧拉角pitch、yaw，roll的理解</a><br><a href="http://www.voidcn.com/blog/xufuyuan/article/p-4874655.html" target="_blank" rel="external">欧拉角和旋转矩阵的转换</a><br><a href="https://book.douban.com/subject/25909351/" target="_blank" rel="external">WebGL 编程指南</a><br><a href="http://www.manew.com/4702.html" target="_blank" rel="external">浅谈Draw Call和Batch的区别</a><br><a href="https://medium.com/@toncijukic/draw-calls-in-a-nutshell-597330a85381" target="_blank" rel="external">Draw calls in a nutshell</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 scarletsky</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/06/30/functional-programming-i-have-learned/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'scarletskygithubio';
+    
+    var disqus_url = 'http://scarletsky.github.io/2017/07/23/glossary-in-3d-development/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//scarletskygithubio.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
