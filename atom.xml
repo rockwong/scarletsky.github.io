@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://scarletsky.github.io/"/>
-  <updated>2017-08-30T14:40:11.000Z</updated>
+  <updated>2017-08-31T13:35:17.000Z</updated>
   <id>http://scarletsky.github.io/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://scarletsky.github.io/2017/08/30/emacs-key-bindings-for-vim-users/"/>
     <id>http://scarletsky.github.io/2017/08/30/emacs-key-bindings-for-vim-users/</id>
     <published>2017-08-30T13:12:59.000Z</published>
-    <updated>2017-08-30T14:40:11.000Z</updated>
+    <updated>2017-08-31T13:35:17.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Emacs 是一个文本编辑器，号称是伪装成编辑器的操作系统。提起 Emacs，必定会联想到它的竞争对手 Vim，它们都是古老而强大的编辑器。虽然我已经用 Vim 好几年了，也听说过 Emacs 的各种强大的能力，但一直没有动力去学习它，直到最近看到强大的 org mode，才鼓起勇气去学习 Emacs。本文主要记录我学习 Emacs 的过程中与 Vim 的键位比较。</p>
 <h2 id="核心键位"><a href="#核心键位" class="headerlink" title="核心键位"></a>核心键位</h2><p>Emacs 使用组合键的形式来触发不同的功能，最常见的是以下几个键位：</p>
 <ul>
 <li>C 即 Ctrl 键，如 <code>&lt;C-x&gt;</code> 表示 按着 Ctrl 再按 x</li>
-<li>S 即 Shift 键</li>
+<li>S 即 Super 键，通常是 Windows 键或者是 Option 键</li>
 <li>M 即 Meta 键，通常 Esc 键，如 <code>&lt;M-x&gt;</code> 表示先按下 Esc，然后松手，再按 x</li>
 </ul>
 <h2 id="常用键位绑定"><a href="#常用键位绑定" class="headerlink" title="常用键位绑定"></a>常用键位绑定</h2><h3 id="Edit"><a href="#Edit" class="headerlink" title="Edit"></a>Edit</h3><table>
