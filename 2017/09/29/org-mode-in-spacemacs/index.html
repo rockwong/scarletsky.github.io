@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Org mode in Spacemacs | Scarletsky</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="emacs,spacemacs,org-mode," />
+  
+
+  <meta name="description" content="简介Org mode 是 Emacs 中的一个 Major mode，本质上只是一种类似记事本的纯文本格式。它与 Markdown 非常相似，都是通过自定义标记来赋予文本样式和语义。我们可以用 Org mode 来记录各种各样的事情，如项目管理，TODO / GTD 管理等等。而 Spacemacs 只是一份强大的 Emacs 配置文件，当 Org mode 与 Spacemacs 结合时，用起来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Org mode in Spacemacs">
+<meta property="og:url" content="http://scarletsky.github.io/2017/09/29/org-mode-in-spacemacs/index.html">
+<meta property="og:site_name" content="Scarletsky">
+<meta property="og:description" content="简介Org mode 是 Emacs 中的一个 Major mode，本质上只是一种类似记事本的纯文本格式。它与 Markdown 非常相似，都是通过自定义标记来赋予文本样式和语义。我们可以用 Org mode 来记录各种各样的事情，如项目管理，TODO / GTD 管理等等。而 Spacemacs 只是一份强大的 Emacs 配置文件，当 Org mode 与 Spacemacs 结合时，用起来">
+<meta property="og:updated_time" content="2017-10-03T08:01:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Org mode in Spacemacs">
+<meta name="twitter:description" content="简介Org mode 是 Emacs 中的一个 Major mode，本质上只是一种类似记事本的纯文本格式。它与 Markdown 非常相似，都是通过自定义标记来赋予文本样式和语义。我们可以用 Org mode 来记录各种各样的事情，如项目管理，TODO / GTD 管理等等。而 Spacemacs 只是一份强大的 Emacs 配置文件，当 Org mode 与 Spacemacs 结合时，用起来">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-40690820-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打开"><span class="toc-text">打开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#格式"><span class="toc-text">格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#功能"><span class="toc-text">功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#大纲"><span class="toc-text">大纲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表格"><span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#待办事项"><span class="toc-text">待办事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导出"><span class="toc-text">导出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-org-mode-in-spacemacs" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Org mode in Spacemacs</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.09.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Scarletsky</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/technology/">technology</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://scarletsky.github.io/2017/09/29/org-mode-in-spacemacs/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Org mode 是 Emacs 中的一个 Major mode，本质上只是一种类似记事本的纯文本格式。它与 Markdown 非常相似，都是通过自定义标记来赋予文本样式和语义。我们可以用 Org mode 来记录各种各样的事情，如项目管理，TODO / GTD 管理等等。<br>而 Spacemacs 只是一份强大的 Emacs 配置文件，当 Org mode 与 Spacemacs 结合时，用起来会非常舒服，会给人一种相见恨晚的感觉。<br>本文主要总结在 Spacemacs 中使用 Org mode 的常用功能。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在 <code>dotspacemacs-configuration-layers</code> 中添加 <code>org</code>，然后重启 Spacemacs。</p>
+<h2 id="打开"><a href="#打开" class="headerlink" title="打开"></a>打开</h2><p>打开任意一个 <code>.org</code> 结尾的文件，Emacs 会以 Org mode 的处理该文件。<br>如果 Spacemacs 正在处理一个项目中的文件，这时候可以按 <code>SPC p o</code>，它会尝试打开该项目根目录中的 <code>TODO.org</code>，如果找不到该文件，就会创建该文件。</p>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>Markdown 文件通常以 <code>.md</code> 结尾，而 Org mode 文件通常以 <code>.org</code> 结尾。<br>在语法上，Org mode 和 Markdown 非常相似， 下表总结了常用的格式：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Markdown</th>
+<th>Org mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h1</td>
+<td># text</td>
+<td>* text</td>
+</tr>
+<tr>
+<td>h2</td>
+<td>## text</td>
+<td>** text</td>
+</tr>
+<tr>
+<td>h3</td>
+<td>### text</td>
+<td>*** text</td>
+</tr>
+<tr>
+<td>h4</td>
+<td>#### text</td>
+<td>**** text</td>
+</tr>
+<tr>
+<td>h5</td>
+<td>##### text</td>
+<td>***** text</td>
+</tr>
+<tr>
+<td>h6</td>
+<td>###### text</td>
+<td>****** text</td>
+</tr>
+<tr>
+<td>italics</td>
+<td>*text*</td>
+<td>/text/</td>
+</tr>
+<tr>
+<td>bold</td>
+<td>**text**</td>
+<td>*text*</td>
+</tr>
+<tr>
+<td>through line</td>
+<td>~~text~~</td>
+<td>+text+</td>
+</tr>
+<tr>
+<td>underline</td>
+<td><u>text</u></td>
+<td>_text_</td>
+</tr>
+<tr>
+<td>link</td>
+<td>[description](url)</td>
+<td>[[url][description]]</td>
+</tr>
+<tr>
+<td>image</td>
+<td>![description](url)</td>
+<td>[[url][description]]</td>
+</tr>
+<tr>
+<td>list</td>
+<td>- item</td>
+<td>- item</td>
+</tr>
+<tr>
+<td>code inline</td>
+<td>`code`</td>
+<td>=code= or ~code~</td>
+</tr>
+<tr>
+<td>code block</td>
+<td>```js</td>
+<td>#+BEGIN_SRC js</td>
+</tr>
+<tr>
+<td></td>
+<td>code</td>
+<td>code</td>
+</tr>
+<tr>
+<td></td>
+<td>```</td>
+<td>#+END_SRC</td>
+</tr>
+<tr>
+<td>quote</td>
+<td>> quote text</td>
+<td>#+BEGIN_QUOTE</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>text</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>#+END_QUOTE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>大家可能会问，既然 Org mode 和 Markdown 差不多，那 Org mode 的优势在哪里呢？<br>答案就是 Org mode 在 Emacs 里面会变得非常强大。</p>
+<h3 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h3><p>在上面的表中可以看到，我们可以用 <code>*</code> 来组织大纲视图。在 Markdown 中，大纲只是用来渲染标题，并没有特殊的功能。<br>而 Org mode 中的大纲是可以折叠的。假如你有以下大纲：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* this is h1</div><div class="line">description of h1</div><div class="line"></div><div class="line">** this is h2</div><div class="line">write what you want here</div><div class="line"></div><div class="line">*** h3</div><div class="line">TODO</div><div class="line"></div><div class="line">** this is another h2</div></pre></td></tr></table></figure>
+<p>Org mode 可以对大纲进行折叠，先把光标移动到大纲标题所在的行，然后按 <code>TAB</code>，当前标题下的内容会被折叠：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* this is h1...</div></pre></td></tr></table></figure>
+<p>再按一次 <code>TAB</code> 会展开大纲:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">* this is h1</div><div class="line">** this is h2...</div><div class="line">** this is another h2...</div></pre></td></tr></table></figure>
+<p>再按一次 <code>TAB</code> 可以展开所有内容。</p>
+<p>大纲常用快捷键：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TAB</code></td>
+<td>展开/折叠当前标题的内容</td>
+</tr>
+<tr>
+<td><code>SHIFT-TAB</code></td>
+<td>展开/折叠所有标题的内容</td>
+</tr>
+<tr>
+<td><code>ALT-&lt;up&gt;/&lt;down&gt;</code></td>
+<td>上移/下移当前标题</td>
+</tr>
+</tbody>
+</table>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>在 Org mode<br>中可以非常方便的制作表格。在 Emacs 中，我们可以按 <code>C-c |</code>，而在 Spacemacs 中，我们可以按 <code>SPC m t n</code> 或 <code>, t n</code> 来触发表格的制作。<br>按了快捷键之后，在 minibuffer 里面输入你想制作的表格大小就可以自动生成表格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">| id | name    | age |</div><div class="line">|----|---------|-----|</div><div class="line">|  1 | scarlex |  10 |</div></pre></td></tr></table></figure>
+<p>Org mode 的表格有一个非常好用的功能：自动对齐。<br>当我们在一个单元格中输入完之后，按 <code>TAB</code> 可以跳到下一个单元格中，然后就会触发单元格的自动对齐，这个功能真的非常好用，我们不用花时间区对齐单元格。</p>
+<p>表格常用快捷键：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>, t n</code></td>
+<td>创建表格</td>
+</tr>
+<tr>
+<td><code>TAB</code></td>
+<td>跳转到下一个单元格</td>
+</tr>
+<tr>
+<td><code>S-TAB</code></td>
+<td>跳转到上一个单元格</td>
+</tr>
+<tr>
+<td><code>, t a</code></td>
+<td>触发自动对齐</td>
+</tr>
+<tr>
+<td><code>, t i r</code></td>
+<td>在当前行上方插入一行</td>
+</tr>
+<tr>
+<td><code>, t i c</code></td>
+<td>在当前列左边插入一列</td>
+</tr>
+<tr>
+<td><code>, t i h</code></td>
+<td>在当前行下面插入水平线</td>
+</tr>
+<tr>
+<td><code>, t d r</code></td>
+<td>删除当前行(vim 模式下可以通过 dd 删除)</td>
+</tr>
+<tr>
+<td><code>, t d c</code></td>
+<td>删除当前列</td>
+</tr>
+<tr>
+<td><code>ALT-&lt;up&gt;</code></td>
+<td>上移当前行</td>
+</tr>
+<tr>
+<td><code>ALT-&lt;down&gt;</code></td>
+<td>下移当前行</td>
+</tr>
+<tr>
+<td><code>ALT-&lt;left&gt;</code></td>
+<td>左移当前列</td>
+</tr>
+<tr>
+<td><code>ALT-&lt;right&gt;</code></td>
+<td>右移当前列</td>
+</tr>
+</tbody>
+</table>
+<h3 id="待办事项"><a href="#待办事项" class="headerlink" title="待办事项"></a>待办事项</h3><p>文章开头提到过，我们可以用 Org mode 来做待办事项管理。<br>要在 Org mode 中添加 TODO 项，只需要用 <code>- [ ] TODO</code> 的形式即可。如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- [ ] Fix bug</div><div class="line">- [ ] Support new feature</div><div class="line">- [ ] Release new version</div></pre></td></tr></table></figure>
+<p>当我们把光标移动到其中一项上面，然后按 <code>C-c C-c</code> 或 <code>, ,</code>，就可以标记该项为完成状态:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- [X] Fix bug</div><div class="line">- [ ] Support new feature</div><div class="line">- [ ] Release new version</div></pre></td></tr></table></figure>
+<p>值得一提的是，Org mode 中可以自动计算待办事项的完成情况，只需要在标题的后面添加 <code>[/]</code> 或 <code>[%]</code>，在完成 TODO 项的时候就会自动计算进度。<br>两者的区别在于进度的表现方式：</p>
+<ul>
+<li><code>[/]</code> 会显示成 <code>[1/4]</code> 的形式。</li>
+<li><code>[%]</code> 会显示成 <code>[25%]</code> 的形式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">TODO List [1/3] // 按 C-c C-c 或 , , 的时候会自动计算</div><div class="line"></div><div class="line">- [X] Fix bug</div><div class="line">- [ ] Support new feature</div><div class="line">- [ ] Release new version</div></pre></td></tr></table></figure>
+<p>除了上面形式的待办事项外，Org mode 还有另外一种形式的表示方式：通过设置 <code>TODO</code> 来标记。<br>默认情况下，Emacs 支持两种标记：<code>TODO</code> 和 <code>DONE</code>。<br>在任意一级的标题中按 <code>C-c C-t</code> 或 <code>, T T</code>，即可为该标题添加标记。<br>来看看下面这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">** Fix bug [/]</div><div class="line"></div><div class="line">- [ ] login failed</div><div class="line">- [ ] database crash</div></pre></td></tr></table></figure>
+<p>假如有以上内容，当我们在这级标题内按 <code>, T T</code>，会自动为其添加 <code>TODO</code> 标记：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">** TODO Fix bug [/]</div><div class="line"></div><div class="line">- [ ] login failed</div><div class="line">- [ ] database crash</div></pre></td></tr></table></figure>
+<p>当我们完成了所有子任务，再按 <code>, T T</code>，会把 <code>TODO</code> 替换成 <code>DONE</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">** DONE Fix bug [2/2]</div><div class="line">  CLOSED: [2017-09-30 六 20:48]</div><div class="line"></div><div class="line">- [X] login failed</div><div class="line">- [X] database crash</div></pre></td></tr></table></figure>
+<p>默认情况下的 <code>TODO</code> 和 <code>DONE</code> 这两种状态在一些情况下可能不够用，不用担心，我们可以自行添加更多的状态。<br>添加方法有以下两种：</p>
+<ul>
+<li>(只对当前 Org 文件生效) 在当前 Org 文件的开头添加以下内容：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#+SEQ_TODO: NEXT(n) TODO(t) WAITING(w) | DONE(d) CANCELLED(c)</div></pre></td></tr></table></figure>
+<p>然后把光标移动到该行上，按 <code>C-c C-c</code> 即可。</p>
+<ul>
+<li>(对所有 Org 文件生效) 在 Emacs 的配置文件中添加以下内容：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">(setq org-todo-keywords</div><div class="line">      &apos;((sequence &quot;NEXT(n)&quot; &quot;TODO(t)&quot; &quot;WAITING(w)&quot;  &quot;|&quot; &quot;DONE(d)&quot; &quot;CANCELLED(c)&quot;)))</div></pre></td></tr></table></figure>
+<p>然后重启 Emacs 即可。</p>
+<p>设置完后按 <code>, T T</code>，会激活一个新窗口，我们可以看到新添加的状态，并且可以通过自定义的快捷键(括号里的字母)来激活对应的状态。</p>
+<p>下面列出待办事项常用的快捷键：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>, ,</code></td>
+<td>把子任务设置成完成/未完成状态</td>
+</tr>
+<tr>
+<td><code>, T T</code></td>
+<td>激活 TODO 项的设置</td>
+</tr>
+<tr>
+<td><code>SHIFT-&lt;left&gt;</code></td>
+<td>设置 TODO 状态</td>
+</tr>
+<tr>
+<td><code>SHIFT-&lt;right&gt;</code></td>
+<td>设置 TODO 状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><p>Org mode 还可以导出各种格式，如 HTML、LaTeX、PDF 等。<br>只需要按 <code>SPC m e e</code> 或 <code>, e e</code>，然后根据提示选择即可。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://spacemacs.org/layers/+emacs/org/README.html" target="_blank" rel="external">http://spacemacs.org/layers/+emacs/org/README.html</a><br><a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE" target="_blank" rel="external">https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE</a><br><a href="http://notex.life/t/emacs-key-binding/18" target="_blank" rel="external">http://notex.life/t/emacs-key-binding/18</a><br><a href="https://www.zhihu.com/question/19851600" target="_blank" rel="external">https://www.zhihu.com/question/19851600</a><br><a href="http://blog.csdn.net/u014801157/article/details/24372485" target="_blank" rel="external">http://blog.csdn.net/u014801157/article/details/24372485</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持 scarletsky</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/30/emacs-key-bindings-for-vim-users/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'scarletskygithubio';
+    
+    var disqus_url = 'http://scarletsky.github.io/2017/09/29/org-mode-in-spacemacs/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//scarletskygithubio.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
