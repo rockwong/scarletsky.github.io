@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://scarletsky.github.io/2017/10/30/the-best-boilerplate-app-is-the-one-you-code-yourself/</loc>
+    
+    <lastmod>2017-11-19T07:56:34.913Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://scarletsky.github.io/2017/05/25/chasing-the-shiny-and-new-in-software/</loc>
+    
+    <lastmod>2017-11-19T06:20:03.837Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://scarletsky.github.io/2017/09/29/org-mode-in-spacemacs/</loc>
     
     <lastmod>2017-10-03T08:01:53.000Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://scarletsky.github.io/2017/06/30/functional-programming-i-have-learned/</loc>
     
     <lastmod>2017-07-04T14:47:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://scarletsky.github.io/2017/05/25/chasing-the-shiny-and-new-in-software/</loc>
-    
-    <lastmod>2017-05-30T15:02:33.000Z</lastmod>
     
   </url>
   
