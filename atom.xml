@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://scarletsky.github.io/"/>
-  <updated>2017-11-19T08:01:30.670Z</updated>
+  <updated>2017-12-24T06:42:17.968Z</updated>
   <id>http://scarletsky.github.io/</id>
   
   <author>
@@ -14,6 +14,152 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用 JSDOC 编写 JavaScript 文档</title>
+    <link href="http://scarletsky.github.io/2017/12/23/write-javascript-document-by-jsdoc/"/>
+    <id>http://scarletsky.github.io/2017/12/23/write-javascript-document-by-jsdoc/</id>
+    <published>2017-12-23T02:24:14.000Z</published>
+    <updated>2017-12-24T06:42:17.968Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>JSDOC 是一个 API 文档生成器，你只需要在代码中添加特定格式的注释，它就可以从注释中为你生成 HTML 文档。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>全局安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">npm install -g jsdoc</div></pre></td></tr></table></figure>
+<p>如果你更倾向项目内使用，你也可以选择：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">npm install jsdoc --save-dev</div></pre></td></tr></table></figure>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>使用 JSDOC 非常简单，先为 JavaScript 文件写好注释，然后用 JSDOC 去解析即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/path/to/jsdoc file1.js file2.js ...</div></pre></td></tr></table></figure>
+<p>但这种方式只适合少量文件时使用，当文件数量多了，再加上其他参数，维护起来就会非常麻烦。<br>所以更好的做法是编写一份配置文件 <code>jsdoc.json</code>，然后通过 <code>-c</code> 参数来指定：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/path/to/jsdoc -c jsdoc.json</div></pre></td></tr></table></figure>
+<p>无论 JSDOC 是通过全局安装，还是局部安装，都建议使用 npm scripts 来调用它，即在 <code>package.json</code> 的 <code>scripts</code> 中添加命令(这里命名成 <code>build:doc</code>，可以根据自己爱好定义其他名字)：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"scripts"</span>: &#123;</div><div class="line">    <span class="attr">"build:doc"</span>: <span class="string">"jsdoc -c jsdoc.json"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样我们就可以通过 <code>npm run build:doc</code> 来生成文档了。</p>
+<p>如果实现修改文件后自动生成文档，只需要用类似 <code>nodemon</code> 之类的工具，监听指定文件的变化，然后再自动执行 <code>npm run build:doc</code> 就好了！</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>JSDOC 的配置项非常多，最常用的是下面这些：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"source"</span>: &#123;</div><div class="line">    <span class="attr">"include"</span>: [ <span class="string">"src/"</span> ],</div><div class="line">    <span class="attr">"exclude"</span>: [ <span class="string">"src/libs"</span> ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"opts"</span>: &#123;</div><div class="line">    <span class="attr">"template"</span>: <span class="string">"node_modules/docdash"</span>,</div><div class="line">    <span class="attr">"encoding"</span>: <span class="string">"utf8"</span>,</div><div class="line">    <span class="attr">"destination"</span>: <span class="string">"./docs/"</span>,</div><div class="line">    <span class="attr">"recurse"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"verbose"</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>source</code> 表示传递给 JSDOC 的文件</li>
+<li><code>source.include</code> 表示 JSDOC 需要扫描哪些文件</li>
+<li><code>source.exclude</code> 表示 JSDOC 需要排除哪些文件</li>
+<li><code>opts</code>  表示传递给 JSDOC 的选项</li>
+<li><code>opts.template</code> 生成文档的模板，默认是 <code>templates/default</code></li>
+<li><code>opts.encoding</code> 读取文件的编码，默认是 <code>utf8</code></li>
+<li><code>opts.destination</code> 生成文档的路径，默认是 <code>./out/</code></li>
+<li><code>opts.recurse</code> 运行时是否递归子目录</li>
+<li><code>opts.verbose</code> 运行时是否输出详细信息，默认是 <code>false</code></li>
+</ul>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>我们知道，JSDOC 的工作原理是通过分析 JavaScript 文件中的注释来生成 HTML 文档的。<br>但是，如果想 JSDOC 生成正确的结果，我们需要编写正确格式的注释才行。它接受如下格式的注释：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * @author Scarlex</div><div class="line"> * @class</div><div class="line"> * @name Application</div><div class="line"> * @description Base Class of Application.</div><div class="line"> * @param &#123;Element&#125; canvas The canvas dom element.</div><div class="line"> * @param &#123;Object&#125; options The options of Application. See &#123;@link Option&#125; for detail.</div><div class="line"> * @return &#123;Application&#125;</div><div class="line"> *</div><div class="line"> * @example</div><div class="line"> * // create your application</div><div class="line"> * new Application(canvas, options);</div><div class="line"> */</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Aplication</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * @private</div><div class="line">   * @function</div><div class="line">   * @name Application#intialize</div><div class="line">   * @description Initialize the application.</div><div class="line">   */</div><div class="line">  initialize() &#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是我们在 JavaScript 中常见的级块注释。<br>需要注意的是，JSDOC 的解析器要求注释必须以 <code>/**</code> 开头，如果是以 <code>/*</code> 、 <code>/***</code> 或多于三个星号的注释都会被忽略。</p>
+<h3 id="标签-Tags"><a href="#标签-Tags" class="headerlink" title="标签 (Tags)"></a>标签 (Tags)</h3><p>有了这种级块注释，我们就可以在里面根据需要编写文档了。JSDOC 为我们提供了非常丰富的标签，它的解析器会对这些标签进行额外处理。这些标签大概可以分成两类：级块标签和行内标签。</p>
+<ul>
+<li><strong>级块标签</strong>：位于注释的最顶层。JSDOC 中绝大部分标签都是级块标签。</li>
+<li><strong>行内标签</strong>：位于级块标签内的标签，如 <code>@link</code>、<code>@tutorial</code>。</li>
+</ul>
+<p>下面介绍一些常见的级块标签：</p>
+<ul>
+<li><code>@author</code> 该类/方法的作者。</li>
+<li><code>@class</code> 表示这是一个类。</li>
+<li><code>@function/@method</code> 表示这是一个函数/方法(这是同义词)。</li>
+<li><code>@private</code> 表示该类/方法是私有的，JSDOC 不会为其生成文档。</li>
+<li><code>@name</code> 该类/方法的名字。</li>
+<li><code>@description</code> 该类/方法的描述。</li>
+<li><code>@param</code> 该类/方法的参数，可重复定义。</li>
+<li><code>@return</code> 该类/方法的返回类型。</li>
+<li><code>@link</code> 创建超链接，生成文档时可以为其链接到其他部分。</li>
+<li><code>@example</code> 创建例子。</li>
+</ul>
+<h3 id="命名路径-Namepaths"><a href="#命名路径-Namepaths" class="headerlink" title="命名路径 (Namepaths)"></a>命名路径 (Namepaths)</h3><p>不知道你有没有发现，上面例子中是用 <code>Application#initialize</code> 来表示一个实例方法的。如果是静态方法，那应该怎么表示呢？JSDOC 有自己的解析规则：</p>
+<ul>
+<li><code>Constructor.Method</code> 表示静态方法</li>
+<li><code>Constructor#Method</code> 表示实例方法</li>
+<li><code>Constructor~Method</code> 表示内部方法</li>
+</ul>
+<p>了解了这些之后，我们就可以用 JSDOC 为 JavaScript 代码编写文档了，快去试试吧！</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://github.com/jsdoc3/jsdoc" target="_blank" rel="external">https://github.com/jsdoc3/jsdoc</a><br><a href="http://usejsdoc.org/" target="_blank" rel="external">http://usejsdoc.org/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;JSDOC 是一个 API 文档生成器，你只需要在代码中添加特定格式的注释，它就可以从注释中为你生成 HTML 文档。&lt;/p&gt;
+&lt;h2 id
+    
+    </summary>
+    
+      <category term="technology" scheme="http://scarletsky.github.io/categories/technology/"/>
+    
+    
+      <category term="tools" scheme="http://scarletsky.github.io/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Promise 实现原理</title>
+    <link href="http://scarletsky.github.io/2017/11/17/how-to-implement-promise-in-javascript/"/>
+    <id>http://scarletsky.github.io/2017/11/17/how-to-implement-promise-in-javascript/</id>
+    <published>2017-11-17T03:52:30.000Z</published>
+    <updated>2017-12-28T02:32:52.272Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Promise 是目前流行的处理异步操作结果的方式。<br>本文假设读者已经了解过 Promise/A+ 规范，并熟悉 Promise 的用法。</p>
+<h2 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h2><p>我们先看看如何构造一个 Promise ：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    resolve(<span class="number">1</span>);</div><div class="line">  &#125;, <span class="number">1000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>观察上面的 Promise，我们可以知道一个 Promise 接受一个函数作为参数，而这个函数也提供了两个函数提供 Promise 内部使用。利用 JavaScript 的特性，我们可以很容易实现这一点：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyPromise</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">  fn(<span class="function"><span class="keyword">function</span> <span class="title">resolve</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">  &#125;, <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(reason);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> MyPromise(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    resolve(<span class="number">1</span>);</div><div class="line">  &#125;, <span class="number">1000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h2><p>Promise/A+ 规范中定义了三个状态：<code>pending</code>、<code>fulfilled</code>、<code>rejected</code>，任何一个 Promise 必须处于其中一个状态。</p>
+<ul>
+<li><p>当 Promise 处于 <code>pending</code> 状态时:</p>
+<ul>
+<li>它可以转换成 <code>fulfilled</code> 或 <code>rejected</code> 状态。</li>
+</ul>
+</li>
+<li><p>当 Promise 处于 <code>fulfilled</code> 或 <code>rejected</code> 状态时：</p>
+<ul>
+<li>它不允许转换成其他状态。</li>
+<li>它必须拥有一个不能被改变的值(或原因)。</li>
+</ul>
+</li>
+</ul>
+<p>这本质上是一个状态机，通过 <code>resolve</code> 或 <code>reject</code> 来改变它内部的状态。因此，我们只需要做个小改动就可以实现了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> STATUS_PENDING = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> STATUS_FULFILLED = <span class="number">1</span>;</div><div class="line"><span class="keyword">var</span> STATUS_REJECTED = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyPromise</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> status = STATUS_PENDING;</div><div class="line"></div><div class="line">  fn(<span class="function"><span class="keyword">function</span> <span class="title">resolve</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">    status = STATUS_REJECTED;</div><div class="line">  &#125;, <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>&#123;</div><div class="line">    status = STATUS_FULFILLED;</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的示例中，我们添加了一个内部变量 <code>status</code> 来实现 Promise 的状态转换。</p>
+<h2 id="Then"><a href="#Then" class="headerlink" title="Then"></a>Then</h2><p>Promise/A+ 规定任何一个 Promise 都必须实现 <code>then</code> 方法，用来访问 Promise 操作的结果(或原因)。<code>then</code> 方法接受两个参数：<code>onFulfilled</code> 和 <code>onRejected</code>，即：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">promise.then(onFulFilled, onRejected);</div></pre></td></tr></table></figure>
+<p>这两个参数有如下规定：</p>
+<ul>
+<li><code>onFulfilled</code> 和 <code>onRejected</code> 都是可选的，如果他们不是函数，那必须忽略它。</li>
+<li>如果 <code>onFulfilled</code> 是一个函数：<ul>
+<li>当 Promise 状态变成 <code>fulfilled</code> 时必须被调用，它的第一个参数是 Promise 的结果。</li>
+<li>它禁止在 Promise 状态变成 <code>fulfilled</code> 前被调用。</li>
+<li>它只能被调用一次。</li>
+</ul>
+</li>
+<li>如果 <code>onRejected</code> 是一个函数：<ul>
+<li>当 Promise 状态变成 <code>rejected</code> 时必须被调用，它的第一个参数是 Promise 的原因。</li>
+<li>它禁止在 Promise 状态变成 <code>rejected</code> 前被调用。</li>
+<li>它只能被调用一次。</li>
+</ul>
+</li>
+<li><code>then</code> 方法可以在同一个 Promise 中多次调用:<ul>
+<li>当 Promise 状态变成 <code>fulfilled</code> 时，所有 <code>onFulfilled</code> 回调函数必须按顺序执行。</li>
+<li>当 Promise 状态变成 <code>rejected</code> 时，所有 <code>onRejected</code> 回调函数必须按顺序执行。</li>
+</ul>
+</li>
+<li><code>then</code> 方法必须返回一个 Promise。</li>
+</ul>
+<p>要实现上面的规范，我们需要两个变量来保存回调函数列表：<code>onFulfilledCallbacks</code> 和 <code>onRejectedCallbacks</code>，然后在状态转换的时候按顺序调用这些回调函数即可：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> STATUS_PENDING = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> STATUS_FULFILLED = <span class="number">1</span>;</div><div class="line"><span class="keyword">var</span> STATUS_REJECTED = <span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyPromise</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> status = STATUS_PENDING;</div><div class="line">  <span class="keyword">var</span> onFulfilledCallbacks = [];</div><div class="line">  <span class="keyword">var</span> onRejectedCallbacks = [];</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.then = <span class="function"><span class="keyword">function</span>(<span class="params">onFulfilled, onRejected</span>) </span>&#123;</div><div class="line">    onFulfilledCallbacks.push(onFulfilled);</div><div class="line">    onRejectedCallbacks.push(onRejected);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  fn(<span class="function"><span class="keyword">function</span> <span class="title">resolve</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">    status = STATUS_REJECTED;</div><div class="line">    onFulfilledCallbacks.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123; fn(value); &#125;);</div><div class="line">  &#125;, <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>&#123;</div><div class="line">    status = STATUS_FULFILLED;</div><div class="line">    onRejectedCallbacks.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123; fn(reason); &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子中实现了最简单的 Promise，但离「可用」还有很长的距离，而且上面只是实现了 Promise/A+ 规范中的一小部分而已，还有很多细节需要处理的。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://promisesaplus.com/" target="_blank" rel="external">https://promisesaplus.com/</a><br><a href="https://www.promisejs.org/implementing/" target="_blank" rel="external">https://www.promisejs.org/implementing/</a><br><a href="https://github.com/Jocs/jocs.github.io/issues/7" target="_blank" rel="external">https://github.com/Jocs/jocs.github.io/issues/7</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Promise 是目前流行的处理异步操作结果的方式。&lt;br&gt;本文假设读者已经了解过 Promise/A+ 规范，并熟悉 Promise 的用
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>「译」自己写的才是最好的样板</title>
@@ -1829,121 +1975,6 @@
     
     
       <category term="javascript" scheme="http://scarletsky.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「译」Node.js Streams 基础</title>
-    <link href="http://scarletsky.github.io/2016/07/01/basics-node-js-streams/"/>
-    <id>http://scarletsky.github.io/2016/07/01/basics-node-js-streams/</id>
-    <published>2016-07-01T05:45:12.000Z</published>
-    <updated>2016-07-02T13:51:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Node.js 天生异步和事件驱动，非常适合处理 I/O 相关的任务。如果你在处理应用中 I/O 相关的操作，你可以利用 Node.js 中的流(stream)。因此，我们先具体看看流，理解一下它们是怎么简化 I/O 操作的吧。</p>
-<h2 id="流是什么"><a href="#流是什么" class="headerlink" title="流是什么"></a>流是什么</h2><p>流是 unix 管道，让你可以很容易地从数据源读取数据，然后流向另一个目的地。<br>简单来说，流不是什么特别的东西，它只是一个实现了一些方法的 <code>EventEmitter</code>。根据它实现的方法，流可以变成可读流(Readable)，可写流(Writable)，或者双向流(Duplex，同时可读可写)。<br>可读流能让你从一个数据源读取数据，而可写流则可以让你往目的地写入数据。</p>
-<p>如果你已经用过 Node.js，你很可能已经遇到过流了。<br>例如，在一个 Node.js 的 HTTP 服务器里面，<code>request</code> 是一个可读流，<code>response</code> 是一个可写流。<br>你也可能用过 <code>fs</code> 模块，它能帮你处理可读可写流。</p>
-<p>现在让你学一些基础，理解不同类型的流。本文会讨论可读流和可写流，双向流超出了本文的讨论范围，我们不作讨论。</p>
-<h2 id="可读流-Readable-Streams"><a href="#可读流-Readable-Streams" class="headerlink" title="可读流 (Readable Streams)"></a>可读流 (Readable Streams)</h2><p>我们可以用可读流从一个数据源中读取数据，这个数据源可以是任何东西，例如系统中的一个文件，内存中的 buffer，甚至是其他流。因为流是 <code>EventEmitter</code>，它们会用各种事件发送数据。我们会利用这些事件来让流工作。</p>
-<h3 id="从流中读取数据"><a href="#从流中读取数据" class="headerlink" title="从流中读取数据"></a>从流中读取数据</h3><p>从流中读取数据最好的方式是监听 <code>data</code> 事件，添加一个回调函数。当有数据流过来的时候，可读流会发送 <code>data</code> 事件，回调函数就会触发。看看下面的代码片段：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> readableStream = fs.createReadStream(<span class="string">'file.txt'</span>);</div><div class="line"><span class="keyword">var</span> data = <span class="string">''</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> readableStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</div><div class="line">  data += chunk;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><code>fs.createReadStream</code> 会给你一个可读流。<br>最开始的时候，这个流不是流动态的。当你添加了 <code>data</code> 的事件监听器，加上一个回调函数时，它才会变成流动态的。在这之后，它就会读取一小块数据，然后传到你的回调函数里面。<br>流的实现者决定了 <code>data</code> 事件的触发频率，例如 HTTP request 会在读取到几 KB 数据的时候触发 <code>data</code> 事件。 当你从一个文件中读取数据的时候，你可能会决定当一行被读完的时候就触发 <code>data</code> 事件。</p>
-<p>当没有数据可读的时候 (读到文件尾部时)，流就会发送 <code>end</code> 事件。在上面的例子中，我们监听了这个事件，当读完文件的时候，就把数据打印出来。</p>
-<p>还有另一种读取流的方式，你只要在读到文件尾部前不断调用流实例中的 <code>read()</code> 方法就可以了。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> readableStream = fs.createReadStream(<span class="string">'file.txt'</span>);</div><div class="line"><span class="keyword">var</span> data = <span class="string">''</span>;</div><div class="line"><span class="keyword">var</span> chunk;</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'readable'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span> ((chunk = readableStream.read()) != <span class="literal">null</span>) &#123;</div><div class="line">    data += chunk;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><code>read()</code> 方法会从内部 buffer 中读取数据，当没有数据可读的时候，它会返回 <code>null</code>。<br>因此，在 while 循环中我们检查 <code>read()</code> 是不是返回 <code>null</code>，当它返回 <code>null</code> 的时候，就终止循环。<br>需要注意的是，当我们可以从流中读取数据的时候，<code>readable</code> 事件就会触发。</p>
-<h3 id="设置编码"><a href="#设置编码" class="headerlink" title="设置编码"></a>设置编码</h3><p>默认情况下，你从流中读取到的是 <code>Buffer</code> 对象。如果你要读取的是字符串的话，这并不适合你。因此，你可以像下面的例子那样通过调用 <code>Readable.setEncoding()</code> 来设置流的编码：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> readableStream = fs.createReadStream(<span class="string">'file.txt'</span>);</div><div class="line"><span class="keyword">var</span> data = <span class="string">''</span>;</div><div class="line"></div><div class="line">readableStream.setEncoding(<span class="string">'utf8'</span>);</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</div><div class="line">  data += chunk;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>上面的例子中，我们把流的编码设置成 <code>utf8</code>，数据就会被解析成 <code>utf8</code>，回调函数中的 <code>chunk</code> 就会是字符串了。</p>
-<h3 id="管道-Piping"><a href="#管道-Piping" class="headerlink" title="管道 (Piping)"></a>管道 (Piping)</h3><p>管道是一个很棒的机制，你不需要自己管理流的状态就可以从数据源中读取数据，然后写入到目的地中。我们先看看下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> readableStream = fs.createReadStream(<span class="string">'file1.txt'</span>);</div><div class="line"><span class="keyword">var</span> writableStream = fs.createWriteStream(<span class="string">'file2.txt'</span>);</div><div class="line"></div><div class="line">readableStream.pipe(writableStream);</div></pre></td></tr></table></figure>
-<p>上面的例子利用 <code>pipe()</code> 方法把 file1 的内容写到 file2 中。因为 <code>pipe()</code> 会帮你管理数据流，你不需要担心数据流的速度。这让 <code>pipe()</code> 变得非常简洁易用。<br>需要注意的是，<code>pipe()</code> 会返回目的地的流，因此你可以很轻易让多个流链接起来！</p>
-<h3 id="链接-Chaining"><a href="#链接-Chaining" class="headerlink" title="链接 (Chaining)"></a>链接 (Chaining)</h3><p>假设有一个归档文件，你想要解压它。有很多方式可以完成这个任务。但最简洁的方式是利用管道和链接：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> zlib = <span class="built_in">require</span>(<span class="string">'zlib'</span>);</div><div class="line"></div><div class="line">fs.createReadStream(<span class="string">'input.txt.gz'</span>)</div><div class="line">  .pipe(zlib.createGunzip())</div><div class="line">  .pipe(fs.createWriteStream(<span class="string">'output.txt'</span>));</div></pre></td></tr></table></figure>
-<p>首先，我们通过 <code>input.txt.gz</code> 创建了一个可读流，然后让它流向 <code>zlib.createGunzip()</code> 流，它会解压内容。最后，我们添加一个可写流把解压后的内容写到另一个文件中。</p>
-<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><p>我们已经讨论了一些可读流中重要的概念了，这里还有一些你需要知道的方法：</p>
-<ol>
-<li><code>Readable.pause()</code> - 这个方法会暂停流的流动。换句话说就是它不会再触发 <code>data</code> 事件。</li>
-<li><code>Readable.resume()</code> - 这个方法和上面的相反，会让暂停流恢复流动。</li>
-<li><code>Readable.unpipe()</code> - 这个方法会把目的地移除。如果有参数传入，它会让可读流停止流向某个特定的目的地，否则，它会移除所有目的地。</li>
-</ol>
-<h2 id="可写流-Writable-Streams"><a href="#可写流-Writable-Streams" class="headerlink" title="可写流 (Writable Streams)"></a>可写流 (Writable Streams)</h2><p>可写流让你把数据写入目的地。就像可读流那样，这些也是 <code>EventEmitter</code>，它们也会触发不同的事件。我们来看看可写流中会触发的事件和方法吧。</p>
-<h3 id="写入流"><a href="#写入流" class="headerlink" title="写入流"></a>写入流</h3><p>要把数据写如到可写流中，你需要在可写流实例中调用 <code>write()</code> 方法，看看下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">var</span> readableStream = fs.createReadStream(<span class="string">'file1.txt'</span>);</div><div class="line"><span class="keyword">var</span> writableStream = fs.createWriteStream(<span class="string">'file2.txt'</span>);</div><div class="line"></div><div class="line">readableStream.setEncoding(<span class="string">'utf8'</span>);</div><div class="line"></div><div class="line">readableStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>) </span>&#123;</div><div class="line">  writableStream.write(<span class="string">'chunk'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>上面的代码非常简单，它只是从输入流中读取数据，然后用 <code>write()</code> 写入到目的地中。<br>这个方法返回一个布尔值来表示写入是否成功。如果返回的是 <code>true</code> 那表示写入成功，你可以继续写入更多的数据。 如果是 <code>false</code>，那意味着发生了什么错误，你现在不能继续写入了。可写流会触发一个 <code>drain</code> 事件来告诉你你可以继续写入数据。</p>
-<h3 id="写完数据后"><a href="#写完数据后" class="headerlink" title="写完数据后"></a>写完数据后</h3><p>当你不需要在写入数据的时候，你可以调用 <code>end()</code> 方法来告诉流你已经完成写入了。假设 <code>res</code> 是一个 HTTP response 对象，你通常会发送响应给浏览器：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">res.write(<span class="string">'Some Data!!'</span>);</div><div class="line">res.end();</div></pre></td></tr></table></figure>
-<p>当 <code>end()</code> 被调用时，所有数据会被写入，然后流会触发一个 <code>finish</code> 事件。注意在调用 <code>end()</code> 之后，你就不能再往可写流中写入数据了。例如下面的代码就会报错：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">res.write(<span class="string">'Some Data!!'</span>);</div><div class="line">res.end();</div><div class="line">res.write(<span class="string">'Trying to write again'</span>); <span class="comment">//Error !</span></div></pre></td></tr></table></figure>
-<p>这里有一些和可写流相关的重要事件：</p>
-<ol>
-<li><code>error</code> - 在写入或链接发生错误时触发</li>
-<li><code>pipe</code> - 当可读流链接到可写流时，这个事件会触发</li>
-<li><code>unpipe</code> -  在可读流调用 <code>unpipe</code> 时会触发</li>
-</ol>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>这些是关于流的基础知识。流，管道，链接是核心，它们是 Node.js 中最强大的功能。如果使用得当，流可以帮助你写出简洁而且高性能的代码。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.sitepoint.com/basics-node-js-streams/" target="_blank" rel="external">https://www.sitepoint.com/basics-node-js-streams/</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Node.js 天生异步和事件驱动，非常适合处理 I/O 相关的任务。如果你在处理应用中 I/O 相关的操作，你可以利用 Node.js 中的流(stream)。因此，我们先具体看看流，理解一下它们是怎么简化 I/O 操作的吧。&lt;/p&gt;
-&lt;h2 id=&quot;流是什么&quot;&gt;&lt;a h
-    
-    </summary>
-    
-      <category term="nodejs" scheme="http://scarletsky.github.io/categories/nodejs/"/>
-    
-    
-      <category term="nodejs" scheme="http://scarletsky.github.io/tags/nodejs/"/>
-    
-      <category term="stream" scheme="http://scarletsky.github.io/tags/stream/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>升级 GitLab 过程中踩过的坑</title>
-    <link href="http://scarletsky.github.io/2016/06/18/issues-when-upgrading-gitlab/"/>
-    <id>http://scarletsky.github.io/2016/06/18/issues-when-upgrading-gitlab/</id>
-    <published>2016-06-18T11:58:57.000Z</published>
-    <updated>2016-06-20T02:53:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近帮公司的 Gitlab 从 7.14 升级到 8.7.6，升级的主要动机是整合 Gitlab CI，提升持续集成的效率。鉴于之前也是我把 Gitlab 从 7.x 升级到 7.14 的，我以为我已经有经验去处理了，但实际上，这次升级让我踩了不少以前没遇到过的坑…<br>本文主要记录升级 Gitlab 过程中踩过的一些坑~</p>
-<h2 id="MySQL-突然启动失败"><a href="#MySQL-突然启动失败" class="headerlink" title="MySQL 突然启动失败"></a>MySQL 突然启动失败</h2><p>由于我们公司的 Gitlab 服务器内存不太够，只有 2G，所以偶尔会出现 500 的错误，但通常情况下，直接通过 <code>$ sudo service gitlab restart</code> 重启一次服务就可以恢复正常了。<br>但是，最近我遇到过 gitlab 启动失败，原因是 MySQL 无法启动。<br>当我启动 MySQL 的时候，报了这样的错误：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ sudo service mysql restart</div><div class="line">...</div><div class="line">MySQL Job failed to start</div></pre></td></tr></table></figure>
-<p>报错就报错吧，去看看 error.log 就好了吧。 然而，我太天真了:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ cat /var/log/mysql/error.log</div><div class="line">$ cat /var/log/mysql/mysql.log</div></pre></td></tr></table></figure>
-<p>MySQL 的 error.log 是空的，mysql.log 也是空的…太诡异了，没 log 怎么 debug ?<br>还好有万能的 google，我找到了类似情况的问题：<a href="http://stackoverflow.com/questions/22909060/mysql-job-failed-to-start" target="_blank" rel="external">mysql-job-failed-to-start</a>。最高票的答案是重装 mysql 的，但我不敢冒这个风险。我注意到有个回答说：</p>
-<blockquote>
-<p>The given solution requires enough free HDD</p>
-</blockquote>
-<p>于是我马上查了一下硬盘空间：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ df -h</div><div class="line">Filesystem      Size  Used Avail Use% Mounted on</div><div class="line">/dev/xvda1       20G   20G  0G   100% /</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>原来是空间满了，于是我删掉了一些没用的东西，腾出了 3G 多的空间之后，MySQL 又可以正常启动了，Gitlab 也是！</p>
-<h2 id="迁移-MySQL-到-PostgreSQL-时找不到依赖"><a href="#迁移-MySQL-到-PostgreSQL-时找不到依赖" class="headerlink" title="迁移 MySQL 到 PostgreSQL 时找不到依赖"></a>迁移 MySQL 到 PostgreSQL 时找不到依赖</h2><p>以前一直听说 PostgreSQL 很强大，而 Gitlab 也是官方推荐使用 PostgreSQL，再加上 Gitlab 有官方教程教我们如何把 MySQL 迁移到 PostgreSQL，于是我就萌生了迁移数据库的念头。</p>
-<p>按照着 <a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/update/mysql_to_postgresql.md" target="_blank" rel="external">Migrating GitLab from MySQL to Postgres</a> 这篇文章，我很轻易就把 MySQL 中的数据迁移到 PostgreSQL 中了。<br>而且每个步骤都没报错，我以为一切正常，谁知道当我执行 <code>service gitlab start</code> 的时候，就报启动失败了。</p>
-<p>我一下子就懵了，为什么按照官方教程做还会报错？ 而且报的还是这种抱不到依赖的错误？<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Specified &apos;postgresql&apos; for database adapter, but the gem is not loaded. Add `gem &apos;pg&apos;` to your Gemfile.</div></pre></td></tr></table></figure></p>
-<p>我找了很多资料，但基本都是说把 <code>pg</code> 加到 Gemfile ，然后再 <code>bundle install</code> 就好了。<br>但我试过把 <code>vendor/bundle</code> 删掉再重装，还是有这个错误。<br>最后，我找到 <a href="https://gitlab.com/gitlab-org/gitlab-ci/issues/227" target="_blank" rel="external">Gem::LoadError: Specified ‘mysql2’ after update to 7.13
-</a> 这个 issue，里面提到在 <code>.bundle/config</code> 里面有一些 bundle 的配置！我发现我里面的配置和这个 issue 提到的配置是一样的：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">BUNDLE_WITHOUT: development:test:postgres:mysql</div></pre></td></tr></table></figure>
-<p>最后，我把上面的 <code>postgres</code> 部分删掉，然后再运行 <code>sudo -u git -H bundle install --without development test mysql --deployment</code> 安装依赖，就能正常启动 gitlab 了。</p>
-<p>这时候，我才体会到，不熟悉 ruby 技术栈去搞 gitlab 真是累啊~</p>
-<h2 id="Docker-化时自动修改用户组引起其他问题"><a href="#Docker-化时自动修改用户组引起其他问题" class="headerlink" title="Docker 化时自动修改用户组引起其他问题"></a>Docker 化时自动修改用户组引起其他问题</h2><p><strong>严格来说这不是升级 Gitlab 升级过程中遇到的坑，这只是我在尝试把 gitlab docker 化时遇到的问题。</strong></p>
-<p>有了上面的经历，我暗下决心，要把 Gitlab Docker 化，这样我就不用操心 Gitlab 相关的问题了，我只要启动下载镜像，运行容器就好了，其他 Gitlab 相关的事情就交回给官方处理好了。</p>
-<p>于是，我找到了 <a href="https://github.com/sameersbn/docker-gitlab" target="_blank" rel="external">docker-gitlab</a>，我慢慢去尝试把 Gitlab 扔到 docker 里面运行。</p>
-<p>最开始的时候，我直接用 docker-compose 来运行 docker-gitlab，我试着先用 MySQL ，于是我把 <code>docker-compose.yaml</code> 中的 PostgreSQL 部分的东西全部改成 MySQL，然后直接用 <code>docker-compose up</code> 来运行 gitlab 。</p>
-<p>虽然运行过程中没看出什么问题，但我后来发现 MySQL 中的用户和用户组都被修改成 <code>messagebus:fuse</code> 了！这样直接导致了我本地的 MySQL 不能正常使用了。</p>
-<p>经过调查，我发现是 docker 的 <code>-v</code> 指定已存在目录的时候，会修改文件目录的用户和用户组，最后把它改回 <code>mysql:adm</code> 才恢复正常~</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://stackoverflow.com/questions/22909060/mysql-job-failed-to-start" target="_blank" rel="external">http://stackoverflow.com/questions/22909060/mysql-job-failed-to-start</a><br><a href="https://gitlab.com/gitlab-org/gitlab-ci/issues/227" target="_blank" rel="external">https://gitlab.com/gitlab-org/gitlab-ci/issues/227</a><br><a href="https://github.com/sameersbn/docker-gitlab" target="_blank" rel="external">https://github.com/sameersbn/docker-gitlab</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;最近帮公司的 Gitlab 从 7.14 升级到 8.7.6，升级的主要动机是整合 Gitlab CI，提升持续集成的效率。鉴于之前也是我把
-    
-    </summary>
-    
-    
-      <category term="gitlab" scheme="http://scarletsky.github.io/tags/gitlab/"/>
     
   </entry>
   
